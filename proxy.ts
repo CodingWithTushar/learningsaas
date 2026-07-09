@@ -2,11 +2,13 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isPublicRoutes = createRouteMatcher([
-  "/signin",
-  "/signup",
+  "/sign-in",
+  "/sign-up",
   "/",
   "/home",
   "/about",
+  "/social",
+  "/uploadvideo",
   "/terms",
   "/privacy",
 ]);
@@ -28,12 +30,12 @@ export default clerkMiddleware((auth, req) => {
   if (isAdminRoute(req)) {
     //If is not a user then redirect to the "/signin" route.
     if (!userId) {
-      return NextResponse.redirect(new URL("/signin", req.url));
+      return NextResponse.redirect(new URL("/sign-in", req.url));
     }
 
     //If user is not an admin then redirect to the "/signin" route.
     if (userId.role !== "admin") {
-      return NextResponse.redirect(new URL("/signin", req.url));
+      return NextResponse.redirect(new URL("/sign-in", req.url));
     }
   }
 
@@ -46,7 +48,7 @@ export default clerkMiddleware((auth, req) => {
   if (!userId) {
     //ProtectedRoutes user can not access them without LoggedIn
     if (!isPublicRoutes(req) && !isPublicApiRoutes(req)) {
-      const signinUrl = new URL("/signin", req.url);
+      const signinUrl = new URL("/sign-in", req.url);
       signinUrl.searchParams.set("redirect_url", currentUrl.pathname);
       return NextResponse.redirect(signinUrl);
     }
