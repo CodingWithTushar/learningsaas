@@ -1,16 +1,17 @@
 import { v2 as cloudinary } from "cloudinary";
 
-if (
-  !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
-  !process.env.CLOUDINARY_API_KEY ||
-  !process.env.CLOUDINARY_API_SECRET
-) {
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+const apiKey = process.env.CLOUDINARY_CLOUD_NAME;
+const apiSecret = process.env.CLOUDINARY_CLOUD_NAME;
+
+if (!cloudName || !apiKey || !apiSecret) {
+  throw new Error("Cloudinary environment variables are missing.");
 }
 
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!,
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
+  cloud_name: cloudName,
+  api_key: apiKey,
+  api_secret: apiSecret,
 });
 
 export default cloudinary;
