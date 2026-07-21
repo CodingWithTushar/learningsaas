@@ -5,7 +5,7 @@ import { CloudinaryUploadResult } from "@/types/cloudinary";
 import cloudinary from "@/lib/cloudinary";
 
 export const requireUser = async () => {
-  const { userId } = await auth();
+  const { userId } = auth();
 
   if (!userId) {
     throw new Error("Unauthorized");
