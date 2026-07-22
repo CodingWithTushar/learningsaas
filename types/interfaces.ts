@@ -4,3 +4,9 @@ export interface CloudinaryUploadResult {
   duration?: number;
   [key: string]: any;
 }
+
+export interface formData {
+    file: File | null,
+    title: string,
+    description: string,
+}
