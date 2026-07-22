@@ -1,12 +1,14 @@
 import { UploadApiOptions } from "cloudinary";
 import { auth } from "@clerk/nextjs/server";
 
-import { CloudinaryUploadResult } from "@/types/cloudinary";
-import cloudinary from "@/lib/cloudinary";
+import cloudinary from "@/lib/cloudinary";  
+import { CloudinaryUploadResult } from "@/types/interfaces";
 
 export const requireUser = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
+  console.log(userId);
+  
   if (!userId) {
     throw new Error("Unauthorized");
   }
